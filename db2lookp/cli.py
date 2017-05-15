@@ -23,7 +23,7 @@ Options:
 
 Help:
     For help using this tool, please open an issue on the Github repository:
-    https://github.com/rdegges/lei-cli
+    https://github.com/csrbwilson/db2lookp-cli.git
 
 """
 

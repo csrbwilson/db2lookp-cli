@@ -1,6 +1,8 @@
 exclude .gitignore
 exclude .idea
 exclude venv
+exclude sample.ddl
+exclude Untitled.ipynb
 include README.rst
 include setup.cfg
 prune .cache
