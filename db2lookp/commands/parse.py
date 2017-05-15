@@ -61,6 +61,10 @@ class Parse(Base):
             print('ERROR: {1}: {0} '.format(fnfe.filename, fnfe.strerror))
             sys.exit()
 
+        if 'DB2LOOK'.lower() not in data[0].lower():
+            print('Unable to verify db2look file signature, file possibly not created by db2look utility.')
+            sys.exit()
+
         return data
 
     @staticmethod
@@ -87,16 +91,20 @@ class Parse(Base):
 
     @staticmethod
     def process(pattern, data):
+        output_file = __name__.split('.')[0] + '_' + pattern + '.sql'
         output = Parse.parse(Parse.ddl_patterns[pattern], data)
+        output_len = len(output)
 
-        if len(output):
-
+        if output_len:
             if pattern not in ['user_function', 'trigger', 'stored_procedure']:
                 data = Parse.clean_data('\n'.join(output).split('\n'))
             else:
                 data = '\n'.join(output)
 
-            Parse.write_file(__name__.split('.')[0] + '_' + pattern + '.sql', data)
+            print('\t{0} object/s written to file {1}', output_len, output_file)
+            Parse.write_file(output_file, data)
+        else:
+            print('\t{0} objects found.', output_len)
 
     @staticmethod
     def src_schema_pattern(src_schema):
@@ -113,6 +121,11 @@ class Parse(Base):
         all = True
         file = self.options['<file>']
         data = Parse.read_file(file)
+
+        print('Parsing file: {0}'.format(file))
+        for line in data[0:8]:
+            print('\t'.format(line.replace('--','')))
+        print()
 
         if self.options['--src-schema'] and self.options['--dst-schema']:
             src_schema = self.options['--src-schema'].split(',')
