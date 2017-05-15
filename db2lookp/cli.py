@@ -1,4 +1,6 @@
 """
+
+
 db2look parser.
 
 Usage:
@@ -18,12 +20,15 @@ Options:
   -a, --alias               Parse create alias statements
   -c, --stored-procedure    Parse create stored procedure statements
   -g, --trigger             Parse create trigger statements
+  -r, --role                Parse create role statements
+  -y, --type                Parse create type statements
   --src-schema=<schema>     Schema name/s to rename. Provide a single schema, or comma separated list of schema names. Option requires --dst-schema option
-  --dst-schema=<schema>     Schema name will replace schema or list of schema's provided in --src-schema option
+  --dst-schema=<schema>     Schema name/s that will replace schema or list of schema's provided in --src-schema option
 
 Help:
     For help using this tool, please open an issue on the Github repository:
     https://github.com/csrbwilson/db2lookp-cli.git
+
 
 """
 

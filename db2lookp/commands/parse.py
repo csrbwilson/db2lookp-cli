@@ -17,7 +17,11 @@ class Parse(Base):
         'view': compile(r'Statements\s+\w+\s+Views\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
         'alias': compile(r'Statements\s+\w+\s+Aliases\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
         'stored_procedure': compile(r'Statements\s+\w+\s+\w+\s+Procedures\s(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
-        'trigger': compile(r'Statements\s+\w+\s+Triggers\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE)
+        'trigger': compile(r'Statements\s+\w+\s+Triggers\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
+        'role': compile(r'Statements\s+\w+\s+Roles(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+                          MULTILINE | DOTALL | IGNORECASE),
+        'type': compile(r'Statements\s+\w+\s+Cursor\s+Types(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+                        MULTILINE | DOTALL | IGNORECASE),
     }
 
     @staticmethod
