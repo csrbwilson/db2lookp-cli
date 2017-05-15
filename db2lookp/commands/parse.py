@@ -8,7 +8,7 @@ class Parse(Base):
 
     ddl_patterns = {
         'schema': compile(r'Statements\s+\w+\s+Schemas(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
-        'sequence': compile(r'Statements\s+\w+\s+Table\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
+        'sequence': compile(r'Statements\s+\w+\s+Sequences\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
         'table': compile(r'Statements\s+\w+\s+Table\s+(?:.*?)[.](?:.*?)\s+(.*?)\s+-{2}\s+DDL', MULTILINE|DOTALL|IGNORECASE),
         'primary_key': compile(r'Statements\s+\w+\s+Primary\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
         'index': compile(r'Statements\s+\w+\s+Indexes\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
