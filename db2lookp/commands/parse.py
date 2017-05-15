@@ -1,4 +1,4 @@
-from re import compile, findall, MULTILINE, DOTALL, sub
+from re import compile, findall, MULTILINE, DOTALL, IGNORECASE, sub
 import sys
 
 from .base import Base
@@ -7,17 +7,17 @@ from .base import Base
 class Parse(Base):
 
     ddl_patterns = {
-        'schema': compile(r'S\w+\s+\w+\s+Schemas(.*?)\s+-{2}\s+DDL', MULTILINE|DOTALL),
-        'sequence': compile(r'S\w+\s+\w+\s+Sequences(.*?)\s+-{2}\s+DDL', MULTILINE|DOTALL),
-        'table': compile(r'S\w+\s+\w+\s+Table\s+(?:.*?)[.](?:.*?)\s+(.*?)\s+-{2}\s+DDL', MULTILINE|DOTALL),
-        'primary_key': compile(r'S\w+\s+\w+\s+Primary\s+(?:.*?)[.](?:.*?)\s+(.*?)-{2}\s+DDL', MULTILINE|DOTALL),
-        'index': compile(r'S\w+\s+\w+\s+Indexes\s+(?:.*?)[.](?:.*?)\s+(.*?)-{2}\s+DDL', MULTILINE|DOTALL),
-        'foreign_key': compile(r'S\w+\s+\w+\s+Foreign\s+(?:.*?)[.](?:.*?)\s+(.*?)-{2}\s+DDL', MULTILINE|DOTALL),
-        'user_function': compile(r'S\w+\s+\w+\s+\w+\s+\w+\s+Functions\s(.*?)\s+-{2}\s+DDL', MULTILINE|DOTALL),
-        'view': compile(r'S\w+\s+\w+\s+Views\s+(.*?)\s+-{2}\s+DDL', MULTILINE|DOTALL),
-        'alias': compile(r'S\w+\s+\w+\s+Aliases\s+(.*?)\s+-{2}\s+DDL', MULTILINE|DOTALL),
-        'stored_procedure': compile(r'S\w+\s+\w+\s+\w+\s+Procedures\s(.*?)\s+-{2}\s+DDL', MULTILINE|DOTALL),
-        'trigger': compile(r'S\w+\s+\w+\s+Triggers\s+(.*?)\s+C\w+\s+W\w+;', MULTILINE|DOTALL)
+        'schema': compile(r'Statements\s+\w+\s+Schemas(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
+        'sequence': compile(r'Statements\s+\w+\s+Table\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
+        'table': compile(r'Statements\s+\w+\s+Table\s+(?:.*?)[.](?:.*?)\s+(.*?)\s+-{2}\s+DDL', MULTILINE|DOTALL|IGNORECASE),
+        'primary_key': compile(r'Statements\s+\w+\s+Primary\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
+        'index': compile(r'Statements\s+\w+\s+Indexes\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
+        'foreign_key': compile(r'Statements\s+\w+\s+Foreign\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
+        'user_function': compile(r'Statements\s+\w+\s+\w+\s+\w+\s+Functions\s(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
+        'view': compile(r'Statements\s+\w+\s+Views\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
+        'alias': compile(r'Statements\s+\w+\s+Aliases\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
+        'stored_procedure': compile(r'Statements\s+\w+\s+\w+\s+Procedures\s(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
+        'trigger': compile(r'Statements\s+\w+\s+Triggers\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE)
     }
 
     @staticmethod
