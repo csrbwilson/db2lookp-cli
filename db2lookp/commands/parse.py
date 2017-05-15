@@ -58,11 +58,16 @@ class Parse(Base):
             with open(file, 'r') as fh:
                 data = fh.read().strip('\n')
         except IOError as fnfe:
+            print()
             print('ERROR: {1}: {0} '.format(fnfe.filename, fnfe.strerror))
+            print()
             sys.exit()
 
-        if 'DB2LOOK'.lower() not in data[0].lower():
-            print('Unable to verify db2look file signature, file possibly not created by db2look utility.')
+        if 'DB2LOOK'.lower() not in data[0:400].split('\n')[0].lower():
+            print(data[0:8])
+            print()
+            print('Unable to verify db2look output file signature, file possibly not created by db2look utility.')
+            print()
             sys.exit()
 
         return data
@@ -78,7 +83,9 @@ class Parse(Base):
             with open(file, 'w') as fh:
                 fh.write(data)
         except IOError as fnfe:
+            print()
             print('ERROR: {1}: {0} '.format(fnfe.filename, fnfe.strerror))
+            print()
             sys.exit()
 
     @staticmethod
@@ -95,16 +102,19 @@ class Parse(Base):
         output = Parse.parse(Parse.ddl_patterns[pattern], data)
         output_len = len(output)
 
+        print('  Pattern {0}:'.format(pattern))
         if output_len:
             if pattern not in ['user_function', 'trigger', 'stored_procedure']:
                 data = Parse.clean_data('\n'.join(output).split('\n'))
             else:
                 data = '\n'.join(output)
 
-            print('\t{0} object/s written to file {1}', output_len, output_file)
+            print('  {0:6d} object/s written to file {1}'.format(output_len, output_file))
+            print()
             Parse.write_file(output_file, data)
         else:
-            print('\t{0} objects found.', output_len)
+            print('  {0:6d} objects found.'.format(output_len))
+            print()
 
     @staticmethod
     def src_schema_pattern(src_schema):
@@ -122,9 +132,11 @@ class Parse(Base):
         file = self.options['<file>']
         data = Parse.read_file(file)
 
+        print()
         print('Parsing file: {0}'.format(file))
-        for line in data[0:8]:
-            print('\t'.format(line.replace('--','')))
+        print()
+        for line in data[0:400].split('\n')[0:8]:
+            print('  {0}'.format(line.replace('-- ','')))
         print()
 
         if self.options['--src-schema'] and self.options['--dst-schema']:
@@ -136,8 +148,10 @@ class Parse(Base):
                 for index, pattern in enumerate(search_pattern):
                     data = sub(pattern, replace_pattern[index], data)
             else:
+                print()
                 print("ERROR: Source and destination schema's require the same number of names "
                       "to support positional rename.")
+                print()
                 sys.exit()
 
         for key in self.options:
@@ -149,3 +163,5 @@ class Parse(Base):
         if all:
             for pattern in Parse.ddl_patterns:
                 Parse.process(pattern, data)
+
+        print()
