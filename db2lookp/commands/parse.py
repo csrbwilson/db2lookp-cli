@@ -22,6 +22,10 @@ class Parse(Base):
                           MULTILINE | DOTALL | IGNORECASE),
         'type': compile(r'Statements\s+\w+\s+Cursor\s+Types(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
                         MULTILINE | DOTALL | IGNORECASE),
+        'check': compile(
+            r'Statements\s+\w+\s+Check\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+            MULTILINE | DOTALL | IGNORECASE),
+
     }
 
     @staticmethod
