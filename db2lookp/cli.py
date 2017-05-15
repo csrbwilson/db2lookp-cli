@@ -4,7 +4,7 @@
 db2look parser.
 
 Usage:
-  db2lookp parse <file> [-sqtpifuvacg] [(--src-schema=<schema> --dst-schema=<schema>)]
+  db2lookp parse <file> [-sqtpifuvacgryk] [(--src-schema=<schema> --dst-schema=<schema>)]
 
 Options:
   -h, --help                Show help

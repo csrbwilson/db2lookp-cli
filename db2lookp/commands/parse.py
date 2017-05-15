@@ -7,21 +7,45 @@ from .base import Base
 class Parse(Base):
 
     ddl_patterns = {
-        'schema': compile(r'Statements\s+\w+\s+Schemas(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
-        'sequence': compile(r'Statements\s+\w+\s+Sequences\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
-        'table': compile(r'Statements\s+\w+\s+Table\s+(?:.*?)[.](?:.*?)\s+(.*?)\s+-{2}\s+DDL', MULTILINE|DOTALL|IGNORECASE),
-        'primary_key': compile(r'Statements\s+\w+\s+Primary\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
-        'index': compile(r'Statements\s+\w+\s+Indexes\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
-        'foreign_key': compile(r'Statements\s+\w+\s+Foreign\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
-        'user_function': compile(r'Statements\s+\w+\s+\w+\s+\w+\s+Functions\s(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
-        'view': compile(r'Statements\s+\w+\s+Views\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
-        'alias': compile(r'Statements\s+\w+\s+Aliases\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
-        'stored_procedure': compile(r'Statements\s+\w+\s+\w+\s+Procedures\s(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
-        'trigger': compile(r'Statements\s+\w+\s+Triggers\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)', MULTILINE|DOTALL|IGNORECASE),
-        'role': compile(r'Statements\s+\w+\s+Roles(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
-                          MULTILINE | DOTALL | IGNORECASE),
-        'type': compile(r'Statements\s+\w+\s+Cursor\s+Types(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
-                        MULTILINE | DOTALL | IGNORECASE),
+        'schema': compile(
+            r'Statements\s+\w+\s+Schemas(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+            MULTILINE|DOTALL|IGNORECASE),
+        'sequence': compile(
+            r'Statements\s+\w+\s+Sequences\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+            MULTILINE|DOTALL|IGNORECASE),
+        'table': compile(
+            r'Statements\s+\w+\s+Table\s+(?:.*?)[.](?:.*?)\s+(.*?)\s+-{2}\s+DDL',
+            MULTILINE|DOTALL|IGNORECASE),
+        'primary_key': compile(
+            r'Statements\s+\w+\s+Primary\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+            MULTILINE|DOTALL|IGNORECASE),
+        'index': compile(
+            r'Statements\s+\w+\s+Indexes\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+            MULTILINE|DOTALL|IGNORECASE),
+        'foreign_key': compile(
+            r'Statements\s+\w+\s+Foreign\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+            MULTILINE|DOTALL|IGNORECASE),
+        'user_function': compile(
+            r'Statements\s+\w+\s+\w+\s+\w+\s+Functions\s(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+            MULTILINE|DOTALL|IGNORECASE),
+        'view': compile(
+            r'Statements\s+\w+\s+Views\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+            MULTILINE|DOTALL|IGNORECASE),
+        'alias': compile(
+            r'Statements\s+\w+\s+Aliases\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+            MULTILINE|DOTALL|IGNORECASE),
+        'stored_procedure': compile(
+            r'Statements\s+\w+\s+\w+\s+Procedures\s(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+            MULTILINE|DOTALL|IGNORECASE),
+        'trigger': compile(
+            r'Statements\s+\w+\s+Triggers\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+            MULTILINE|DOTALL|IGNORECASE),
+        'role': compile(
+            r'Statements\s+\w+\s+Roles(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+            MULTILINE | DOTALL | IGNORECASE),
+        'type': compile(
+            r'Statements\s+\w+\s+Cursor\s+Types(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
+            MULTILINE | DOTALL | IGNORECASE),
         'check': compile(
             r'Statements\s+\w+\s+Check\s+(?:.*?)[.](?:.*?)\s+(.*?)(?:\s+-{2}\s+DDL|\s+-{2}\s+Auth|\s+C\w+\s+W\w+;)',
             MULTILINE | DOTALL | IGNORECASE),
@@ -56,8 +80,8 @@ class Parse(Base):
     @staticmethod
     def clean_data(data):
         actual_data = [s for s in data if '-' not in s.strip() and len(s.strip()) > 0]
-        split_by_statement = '\n'.join(actual_data).split(';')
-        clean_data = ';\n'.join(split_by_statement)
+        split_by_statement = '\n'.join(actual_data).split('@')
+        clean_data = '@\n'.join(split_by_statement)
 
         return clean_data
 
@@ -99,7 +123,8 @@ class Parse(Base):
                 for index, pattern in enumerate(search_pattern):
                     data = sub(pattern, replace_pattern[index], data)
             else:
-                print("ERROR: Source and destination schema's don't match.")
+                print("ERROR: Source and destination schema's require the same number of names "
+                      "to support positional rename.")
                 sys.exit()
 
         for key in self.options:
